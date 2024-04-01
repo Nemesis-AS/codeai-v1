@@ -360,10 +360,8 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 load_dotenv()
 try:
     genai.configure(api_key=(os.getenv("GOOGLE_API_KEY_A")))
-    print("Configuring...")
 except:
     genai.configure(api_key=(os.getenv("GOOGLE_API_KEY_S")))
-    print("Configuring again...")
 
 
 # def get_pdf_text(pdf_docs):
@@ -491,7 +489,7 @@ def gemini(filename, code):
         text_chunks = get_text_chunks(code)
         get_vector_store(text_chunks)
 
-        print("Text Chunks: ", text_chunks)
+        # print("Text Chunks: ", text_chunks)
 
         # Handle user question
         # user_question = request.POST.get('user_question')
@@ -526,13 +524,13 @@ def generate_pdf1(request):
         
         if repositories:
             selected_repo = (request.POST.get('selected_repo'))
-            print((selected_repo))
+            # print((selected_repo))
             repo_name = selected_repo.rsplit('/', 1)[1]
 
             contents = fetch_contents(f"{selected_repo}/contents",access_token)
-            print("contents: ", contents, "\n\n\n")
+            # print("contents: ", contents, "\n\n\n")
             code = documentation(contents, username, repo_name,access_token)
-            print("code: ", code, "\n\n\n")
+            # print("code: ", code, "\n\n\n")
             code1 = visualize_structure(contents, username, repo_name, access_token)
 
             # Construct the PDF filename
@@ -574,9 +572,12 @@ def documentation(contents, username, repo_name,access_token):
 
             else:
                 filename = item['name']
-                if filename.endswith(('.py', '.dart','.html','.yaml', '.rs')):
+                # @todo! Add File Formats here
+                file_formats = ('.py', '.dart','.html','.yaml', '.rs')
+
+                if filename.endswith(file_formats):
                     raw_url = item['download_url']
-                    print("Fetching file: ", raw_url)
+                    # print("Fetching file: ", raw_url)
                     code = fetch_code(raw_url)
                     futures.append(executor.submit(gemini, filename, code))
         
@@ -585,7 +586,7 @@ def documentation(contents, username, repo_name,access_token):
         for future in as_completed(futures):
             try:
                 result1 = future.result()
-                print("Result: ", result1)
+                # print("Result: ", result1)
                 if result1 is not None:
                     result += result1
             except Exception as e:

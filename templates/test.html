@@ -216,7 +216,7 @@
                           // Use regular expression to find lines starting with ```python and ending with ```
                           const regex = /```python([\s\S]*?)```/g;
                           const formattedText = textContent.replace(regex, (match) => {
-                              const pythonCode = match.substring(11, match.length - 3).trim(); // Extract Python code between triple backticks
+                              const pythonCode = match.substring(9, match.length - 3).trim(); // Extract Python code between triple backticks
                               return `<div class="python-code">${pythonCode}</div>`;
                           });
               
