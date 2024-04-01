@@ -38,7 +38,7 @@ def get_text_chunks(text):
     return chunks
 
 def get_vector_store(text_chunks):
-    embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
+    embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001", google_api_key=os.getenv("GOOGLE_API_KEY_A"))
     vector_store = FAISS.from_texts(text_chunks, embedding=embeddings)
     vector_store.save_local(os.path.join(settings.BASE_DIR, "faiss_index"))
     return vector_store
@@ -56,7 +56,7 @@ def get_conversational_chain():
     Answer:
     """
 
-    model = ChatGoogleGenerativeAI(model="gemini-pro", temperature=0.3)
+    model = ChatGoogleGenerativeAI(model="gemini-pro", temperature=0.3, google_api_key=os.getenv("GOOGLE_API_KEY_A"))
 
     prompt = PromptTemplate(template=prompt_template, input_variables=["context", "question"])
     chain = load_qa_chain(model, chain_type="stuff", prompt=prompt)
@@ -64,8 +64,8 @@ def get_conversational_chain():
     return chain
 
 def user_input(user_question):
-    embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
-    new_db = FAISS.load_local(os.path.join(settings.BASE_DIR, "faiss_index"), embeddings)
+    embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001", google_api_key=os.getenv("GOOGLE_API_KEY_A"))
+    new_db = FAISS.load_local(os.path.join(settings.BASE_DIR, "faiss_index"), embeddings, allow_dangerous_deserialization=True)
     docs = new_db.similarity_search(user_question)
     chain = get_conversational_chain()
     response = chain({"input_documents": docs, "question": user_question}, return_only_outputs=True)

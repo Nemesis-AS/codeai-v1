@@ -28,7 +28,7 @@
     <div class="container">
       <div class="navbar-translate">
         <a class="navbar-brand" href="" rel="tooltip" title="Designed and Coded by Aryan&Axvin" data-placement="bottom" target="_blank">
-          Talk To <span>Code</span>
+          Code <span>Crafter</span>
         </a>
         <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-bar bar1"></span>
@@ -41,7 +41,7 @@
           <div class="row">
             <div class="col-6 collapse-brand">
               <a>
-                Talk To Code
+                Code Crafter
               </a>
             </div>
             <div class="col-6 collapse-close text-right">
@@ -71,9 +71,9 @@
             </a>
           </li>
           <li class="dropdown nav-item">
-            <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+            {% comment %} <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
               <i class="fa fa-cogs d-lg-none d-xl-none"></i> Getting started
-            </a>
+            </a> {% endcomment %}
             <div class="dropdown-menu dropdown-with-icons">
               <a href="https://demos.creative-tim.com/blk-design-system/docs/1.0/getting-started/overview.html" class="dropdown-item">
                 <i class="tim-icons icon-paper"></i> Documentation
@@ -89,11 +89,11 @@
               </a>
             </div>
           </li>
-          <li class="nav-item">
+          {% comment %} <li class="nav-item">
             <a class="nav-link btn btn-default d-none d-lg-block" href="javascript:void(0)" onclick="scrollToDownload()">
               <i class="tim-icons icon-cloud-download-93"></i> Download
             </a>
-          </li>
+          </li> {% endcomment %}
         </ul>
       </div>
     </div>
@@ -113,19 +113,13 @@
         <div class="content-center brand">
           <h1 class="h1-seo">Talk To Code</h1>
           <h3>Your AI-powered coding companion that generates documentation and resolves coding doubts effortlessly.</h3>
-          <a href="/generate_pdf1" button class="btn btn-primary" > Get Started </a></button> 
+          <a href="/generate_pdf2" button class="btn btn-primary "> Import Repo </a>
+          <a href="/gemini" button class="btn btn-primary "> Upload Files </a> 
         </div>
       </div>
     </div>
-
-        <!-- <img src="{% static 'assets/img/blob.png' %}" class="path">
-        <img src="{% static 'assets/img/path2.png' %}" class="path2">
-        <img src="{% static 'assets/img/triunghiuri.png' %}" class="shapes triangle">
-        <img src="{% static 'assets/img/waves.png' %}" class="shapes wave">
-        <img src="{% static 'assets/img/patrat.png' %}" class="shapes squares">
-        <img src="{% static 'assets/img/cercuri.png' %}" class="shapes circle"> -->
  
-        <section class="section section-lg section-safe">
+        {% comment %} <section class="section section-lg section-safe">
           <img src="{% static 'assets/img/path5.png' %}" class="path">
           <div class="container">
             <div class="row row-grid justify-content-between">
@@ -147,11 +141,6 @@
                       <div class="numbers">
                         <p class="card-title">Fast</p>
                         <p class="card-category text-white">Interactive Query Resolution
-
-
-
-
-
                         </p>
                       </div>
                     </div>
@@ -211,8 +200,8 @@
               </div>
             </div>
           </div>
-        </section>
-      <section class="section section-lg">
+        </section> {% endcomment %}
+      {% comment %} <section class="section section-lg">
         <section class="section">
           <!-- <img src="{% static 'assets/img/path4.png' %}" class="path"> -->
           <div class="container">
@@ -317,10 +306,10 @@
             </div>
           </div>
         </section>
-      </section>
+      </section> {% endcomment %}
 
     </div>
-    <footer class="footer">
+    {% comment %} <footer class="footer">
       <div class="container">
         <div class="row">
           <div class="col-md-3">
@@ -391,7 +380,7 @@
           </div>
         </div>
       </div>
-    </footer>
+    </footer> {% endcomment %}
   </div>
   <!--   Core JS Files   -->
   <script src="{% static '/assets/js/core/jquery.min.js' %}" type="text/javascript"></script>
@@ -410,8 +399,8 @@
   <!-- Black Dashboard DEMO methods, don't include it in your project! -->
   <script src="{% static '/assets/demo/demo.js'%}"></script>
   <!-- Control Center for Black UI Kit: parallax effects, scripts for the example pages etc -->
-  <script src="{% static '/assets/js/blk-design-system.min.js?v=1.0.0' %}" type="text/javascript"></script>
-  <script>
+  {% comment %} <script src="{% static '/assets/js/blk-design-system.min.js?v=1.0.0' %}" type="text/javascript"></script> {% endcomment %}
+  {% comment %} <script>
     $(document).ready(function() {
       blackKit.initDatePicker();
       blackKit.initSliders();
@@ -425,7 +414,7 @@
         }, 1000);
       }
     }
-  </script>
+  </script> {% endcomment %}
 </body>
 
 </html>
