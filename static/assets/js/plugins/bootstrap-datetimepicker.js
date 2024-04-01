@@ -519,7 +519,7 @@
           right: horizontal === 'left' ? 'auto' : parent.outerWidth() - element.outerWidth() - (parent === element ? 0 : position.left)
         });
 
-        // Creative Tim Changes - we add after 180 ms the ".open" class, in this way the animations will be the same with the other dropdowns from the
+        //we add after 180 ms the ".open" class, in this way the animations will be the same with the other dropdowns from the
         setTimeout(function() {
           widget.addClass('open');
         }, 180);
