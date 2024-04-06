@@ -1,0 +1,12 @@
+services:
+  - type: web
+    plan: free
+    name: mysite
+    runtime: python
+    buildCommand: "./build.sh"
+    startCommand: "python -m gunicorn autodocai.asgi:application -k uvicorn.workers.UvicornWorker"
+    envVars:
+      - key: something
+        generateValue: true
+      - key: WEB_CONCURRENCY
+        value: 4
