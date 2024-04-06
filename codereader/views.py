@@ -6,6 +6,7 @@ from fpdf import FPDF
 import requests
 from concurrent.futures import ThreadPoolExecutor
 from collections import defaultdict
+from django.views.decorators.csrf import csrf_exempt
 
 def fetch_repositories(username,access_token):
     """
@@ -307,6 +308,57 @@ def profile_analysis(request):
             return render(request, 'profile.html', {'error': error})
     return render(request, 'profile.html', {'data': data})
 
+@csrf_exempt
+def get_docs(request):
+    access_token=(os.getenv("GITHUB_ACCESS_TOKEN"))
+    if request.method == 'POST':
+        code = request.POST.get('code')
+        filename = request.POST.get('filename')
+
+        doc = gemini(filename, code)
+        print(doc)
+
+        return HttpResponse("Done!")
+
+
+        username = request.POST.get('username')
+        repositories = fetch_repositories(username,access_token)
+        
+        if repositories:
+            selected_repo = (request.POST.get('selected_repo'))
+            # print((selected_repo))
+            repo_name = selected_repo.rsplit('/', 1)[1]
+
+            contents = fetch_contents(f"{selected_repo}/contents",access_token)
+            # print("contents: ", contents, "\n\n\n")
+            code = documentation(contents, username, repo_name,access_token)
+            # print("code: ", code, "\n\n\n")
+            code1 = visualize_structure(contents, username, repo_name, access_token)
+
+            # Construct the PDF filename
+            pdf_filename = f"{username}_{repo_name}_code.pdf"
+
+            # Call the function to convert content to PDF
+            convert_txt_to_pdf(code1, pdf_filename)
+
+
+            pdf_filename = f"{username}_{repo_name}_code_documentation.pdf"
+            pdf_byte = convert_txt_to_pdf1(code, pdf_filename)
+
+            # Convert binary PDF content to Base64 string
+            pdf_bytes = base64.b64encode(pdf_byte).decode('utf-8')
+
+
+            content = {
+                'code' : code,
+                'pdf_bytes': pdf_bytes
+            }
+            return render(request, 'test.html',content)
+            # return HttpResponse(f"PDF '{pdf_filename}' generated successfully.")
+        else:
+            return HttpResponse("No repositories found for the given username.")
+    else:
+        return HttpResponse("Not a view route!")
 
 
 
@@ -481,7 +533,7 @@ def search_related_content(query):
 
 def gemini(filename, code):
     response_text1=""
-    if code :
+    if code:
         # Handle PDF upload
         # pdf_docs = request.FILES.getlist('pdf_files')
         # raw_text = get_pdf_text(pdf_docs)
