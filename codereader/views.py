@@ -574,6 +574,7 @@ def generate_pdf1(request):
         username = request.POST.get('username')
         repositories = fetch_repositories(username,access_token)
         
+        # print(repositories)
         if repositories:
             selected_repo = (request.POST.get('selected_repo'))
             # print((selected_repo))
